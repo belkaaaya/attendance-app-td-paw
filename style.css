@@ -1,0 +1,173 @@
+:root{
+  --bg:#FFECEC; 
+  --card:#FFF5F5;
+  --ink:#250000;
+
+  --accent:#B30000;      /* main red */
+  --accent-2:#7A0000;    /* dark red */
+  --line:#FFCCCC;        /* soft red */
+  
+  --shadow:0 10px 18px rgba(0,0,0,.06), 
+           0 2px 6px rgba(0,0,0,.04);
+  --radius:18px;
+
+  --ok:#dff5e9; 
+  --mid:#fff7d6; 
+  --bad:#ffe1e1;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--ink);
+  background:linear-gradient(180deg,var(--bg),#ffd6d6);
+}
+
+/* Navigation */
+.nav{
+  position:sticky; top:0; z-index:10;
+  display:flex; gap:.5rem; align-items:center;
+  padding:10px 12px;
+  background:rgba(255,230,230,.85);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+  overflow:auto;
+}
+.nav a{
+  text-decoration:none; color:var(--accent-2);
+  font-weight:600; padding:.5rem .8rem;
+  border-radius:999px; background:#ffe3e3;
+  white-space:nowrap;
+}
+.nav .left{ margin-right:auto; background:#ffd1d1 }
+
+/* Containers & Cards */
+.container{ 
+  max-width:1100px; margin:0 auto; 
+  padding:18px 12px; display:grid; gap:18px 
+}
+.card{
+  background:var(--card); 
+  border:1px solid var(--line);
+  border-radius:var(--radius); 
+  box-shadow:var(--shadow);
+  padding:14px;
+}
+
+/* Titles */
+h1,h2{ margin:0 0 10px }
+h1{ font-size:22px; color:var(--accent-2) }
+h2{ font-size:18px; color:var(--accent) }
+
+/* Tag */
+.tag{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:6px 10px; border-radius:999px;
+  background:#ffdddd; color:var(--accent-2);
+  font-size:12px; font-weight:600;
+}
+
+/* Header Row */
+.header-row{
+  display:flex; align-items:center; gap:12px; justify-content:space-between;
+}
+
+/* Buttons */
+.btn{
+  border:none; cursor:pointer; font-weight:700;
+  padding:11px 14px; border-radius:12px;
+  background:var(--accent-2); color:#fff;
+  box-shadow:0 6px 14px rgba(122,0,0,.24);
+}
+.btn.secondary{
+  background:transparent; color:var(--accent-2);
+  border:1px solid var(--accent-2); box-shadow:none;
+}
+.btn.small{ padding:8px 12px; border-radius:10px; }
+
+/* Tables */
+.table-wrap{ 
+  overflow:auto; 
+  border:1px solid var(--line); 
+  border-radius:14px 
+}
+table{ 
+  min-width:1100px; 
+  border-collapse:collapse; 
+  background:white 
+}
+th,td{ padding:10px 12px; text-align:left; font-size:14px }
+thead th{
+  background:#ffe3e3; 
+  color:var(--accent-2);
+  font-weight:700; 
+  border-bottom:1px solid var(--line);
+}
+tbody tr{ border-top:1px solid var(--line) }
+tbody tr:nth-child(even){ background:#fff5f5 }
+input[type="checkbox"]{ 
+  width:18px; height:18px; 
+  accent-color:var(--accent) 
+}
+
+/* Highlights */
+.abs-low{ background:var(--ok)!important; }
+.abs-mid{ background:var(--mid)!important; }
+.abs-high{ background:var(--bad)!important; }
+
+/* Form */
+form .grid{ display:grid; gap:12px; grid-template-columns:1fr }
+.field{ display:flex; flex-direction:column; gap:6px }
+label{ font-weight:600; color:var(--accent-2) }
+input[type="text"],input[type="email"]{
+  padding:10px 12px; border:1px solid var(--line);
+  border-radius:12px; background:#fff; outline:none;
+}
+input[type="text"]:focus,input[type="email"]:focus{
+  border-color:#ffb3b3; 
+  box-shadow:0 0 0 4px rgba(179,0,0,.15);
+}
+.error-msg{ font-size:12px; color:#b00020; margin-top:2px; display:none }
+.invalid input{ 
+  border-color:#b00020; 
+  box-shadow:0 0 0 3px rgba(176,0,32,.10) 
+}
+.actions{ margin-top:8px; display:flex; gap:10px; flex-wrap:wrap }
+
+/* Report Section */
+.legend{
+  display:flex; gap:16px; align-items:center; flex-wrap:wrap;
+  margin:6px 0 10px;
+  color:#7a4848; font-size:13px; font-weight:600;
+}
+.legend .dot{
+  width:12px; height:12px; border-radius:3px; margin-right:6px;
+  background:#ccc;
+}
+.legend .dot.total{ background:#7A0000; }
+.legend .dot.present{ background:#B30000; }
+.legend .dot.participated{ background:#FF9999; }
+
+.chart-wrap{
+  border:1px solid var(--line); 
+  border-radius:12px; 
+  background:#fff; padding:10px; 
+  overflow:auto;
+}
+
+/* Responsive */
+@media (min-width:600px){
+  h1{font-size:26px} 
+  h2{font-size:20px}
+  .container{padding:24px 18px;gap:22px}
+  table{min-width:100%}
+  form .grid{grid-template-columns:repeat(2,minmax(220px,1fr))}
+}
+@media (min-width:900px){
+  h1{font-size:32px} 
+  h2{font-size:22px}
+  .container{padding:28px 20px;gap:26px}
+  form .grid{grid-template-columns:repeat(2,minmax(240px,1fr))}
+}

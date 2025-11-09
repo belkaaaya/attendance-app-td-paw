@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>TP1/TP2 – Attendance (Mobile-First)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="#home" class="left">Home</a>
+    <a href="#attendance">Attendance List</a>
+    <a href="#add-student">Add Student</a>
+  </nav>
+
+  <main class="container">
+
+    <!-- Attendance Table -->
+    <section id="attendance" class="card">
+      <div class="header-row">
+        <h1>Attendance List</h1>
+        <button id="showReportBtn" class="btn small">Show Report</button>
+      </div>
+      <span class="tag">Session date: 2025-11-06</span>
+
+      <div class="table-wrap">
+        <table aria-label="Attendance Table" id="attendanceTable">
+          <thead>
+            <tr>
+              <th rowspan="2">Student ID</th>
+              <th rowspan="2">Last Name</th>
+              <th rowspan="2">First Name</th>
+              <th rowspan="2">Course</th>
+              <th colspan="6">Sessions (S1–S6)</th>
+              <th colspan="6">Participation (P1–P6)</th>
+              <th rowspan="2">Absences</th>
+              <th rowspan="2">Participation</th>
+              <th rowspan="2">Message</th>
+            </tr>
+            <tr>
+              <th>S1</th><th>S2</th><th>S3</th><th>S4</th><th>S5</th><th>S6</th>
+              <th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th><th>P6</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Row 1 -->
+            <tr>
+              <td>1001</td><td>Ahmed</td><td>Sara</td><td>AWP</td>
+              <td><input type="checkbox" checked></td>
+              <td><input type="checkbox" checked></td>
+              <td><input type="checkbox"></td>
+              <td><input type="checkbox"></td>
+              <td><input type="checkbox"></td>
+              <td><input type="checkbox"></td>
+              <td><input type="checkbox" checked></td>
+              <td><input type="checkbox" checked></td>
+              <td><input type="checkbox"></td>
+              <td><input type="checkbox"></td>
+              <td><input type="checkbox"></td>
+              <td><input type="checkbox"></td>
+              <td class="absences">0</td>
+              <td class="participations">0</td>
+              <td class="message"></td>
+            </tr>
+            <!-- Row 2 -->
+            <tr>
+              <td>1002</td><td>Yacine</td><td>Ali</td><td>AWP</td>
+              <td><input type="checkbox" checked></td>
+              <td><input type="checkbox"></td>
+              <td><input type="checkbox" checked></td>
+              <td><input type="checkbox" checked></td>
+              <td><input type="checkbox" checked></td>
+              <td><input type="checkbox" checked></td>
+              <td><input type="checkbox" checked></td>
+              <td><input type="checkbox"></td>
+              <td><input type="checkbox" checked></td>
+              <td><input type="checkbox"></td>
+              <td><input type="checkbox" checked></td>
+              <td><input type="checkbox" checked></td>
+              <td class="absences">0</td>
+              <td class="participations">0</td>
+              <td class="message"></td>
+            </tr>
+            <!-- Row 3 -->
+            <tr>
+              <td>1003</td><td>Houcine</td><td>Rania</td><td>AWP</td>
+              <td><input type="checkbox" checked></td>
+              <td><input type="checkbox" checked></td>
+              <td><input type="checkbox"></td>
+              <td><input type="checkbox" checked></td>
+              <td><input type="checkbox"></td>
+              <td><input type="checkbox"></td>
+              <td><input type="checkbox" checked></td>
+              <td><input type="checkbox"></td>
+              <td><input type="checkbox"></td>
+              <td><input type="checkbox"></td>
+              <td><input type="checkbox"></td>
+              <td><input type="checkbox"></td>
+              <td class="absences">0</td>
+              <td class="participations">0</td>
+              <td class="message"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Report Section -->
+      <!-- Report Section -->
+    <section id="report" class="card" aria-live="polite" style="display:none;">
+      <h2>Attendance Report – per Session</h2>
+
+      <!-- petite légende -->
+      <div class="legend">
+        <span><i class="dot total"></i>Total</span>
+        <span><i class="dot present"></i>Present</span>
+        <span><i class="dot participated"></i>Participated</span>
+      </div>
+
+      <div class="chart-wrap">
+        <canvas id="reportChart" width="800" height="360" aria-label="Report chart per session"></canvas>
+      </div>
+    </section>
+
+    <!-- Add Student Form -->
+    <section id="add-student" class="card">
+      <h2>Add New Student</h2>
+      <form id="studentForm" action="#" method="post" novalidate>
+        <div class="grid">
+          <div class="field" id="f-studentId">
+            <label for="studentId">Student ID</label>
+            <input type="text" id="studentId" name="studentId" placeholder="">
+            <span class="error-msg">Student ID must be numeric and not empty.</span>
+          </div>
+          <div class="field" id="f-lastName">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" placeholder="">
+            <span class="error-msg">Only letters allowed.</span>
+          </div>
+          <div class="field" id="f-firstName">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" placeholder="">
+            <span class="error-msg">Only letters allowed.</span>
+          </div>
+          <div class="field" id="f-email">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="">
+            <span class="error-msg">Enter a valid email.</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn">Submit</button>
+          <button type="reset" class="btn secondary">Reset</button>
+        </div>
+      </form>
+    </section>
+  </main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
