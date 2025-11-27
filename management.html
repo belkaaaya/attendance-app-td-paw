@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Student Management - AWP Tutorial 3</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        select {
+            padding: 10px 12px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: #fff;
+            outline: none;
+            width: 100%;
+        }
+        
+        select:focus {
+            border-color: #90dbd2;
+            box-shadow: 0 0 0 4px rgba(26, 188, 156, .18);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <a href="index.html" class="left">Back to Attendance</a>
+        <a href="#manage">Tutorial 3 Management</a>
+    </nav>
+
+    <main class="container">
+        <section id="manage" class="card">
+            <h1>Tutorial 3 - Complete Management Panel</h1>
+
+            <!-- Exercise 1: JSON Student Addition -->
+            <div class="card">
+                <h2>Exercise 1: Add Student (JSON Version)</h2>
+                <form id="jsonStudentForm">
+                    <div class="grid">
+                        <div class="field">
+                            <label for="jsonStudentId">Student ID</label>
+                            <input type="text" id="jsonStudentId" name="studentId" required>
+                        </div>
+                        <div class="field">
+                            <label for="jsonLastName">Last Name</label>
+                            <input type="text" id="jsonLastName" name="lastName" required>
+                        </div>
+                        <div class="field">
+                            <label for="jsonFirstName">First Name</label>
+                            <input type="text" id="jsonFirstName" name="firstName" required>
+                        </div>
+                        <div class="field">
+                            <label for="jsonEmail">Email</label>
+                            <input type="email" id="jsonEmail" name="email" required>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button type="submit" class="btn">Add to JSON File (Exercise 1)</button>
+                    </div>
+                </form>
+                <div id="jsonResult"></div>
+            </div>
+
+            <!-- Exercise 4: Database CRUD -->
+            <div class="card">
+                <h2>Exercise 4: Database CRUD Operations</h2>
+
+                <!-- Update Student -->
+                <h3>Update Student</h3>
+                <form id="updateForm">
+                    <div class="grid">
+                        <div class="field">
+                            <label for="updateId">Student ID (Database)</label>
+                            <input type="number" id="updateId" name="id" required>
+                        </div>
+                        <div class="field">
+                            <label for="updateFullname">Full Name</label>
+                            <input type="text" id="updateFullname" name="fullname" required>
+                        </div>
+                        <div class="field">
+                            <label for="updateMatricule">Matricule</label>
+                            <input type="text" id="updateMatricule" name="matricule" required>
+                        </div>
+                        <div class="field">
+                            <label for="updateGroupId">Group</label>
+                            <select id="updateGroupId" name="group_id">
+                                <option value="CS101">CS101</option>
+                                <option value="CS102">CS102</option>
+                                <option value="WEB3">WEB3</option>
+                                <option value="ISIL">ISIL</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button type="submit" class="btn">Update Student</button>
+                    </div>
+                </form>
+
+                <!-- Delete Student -->
+                <h3>Delete Student</h3>
+                <form id="deleteForm">
+                    <div class="field">
+                        <label for="deleteId">Student ID to Delete</label>
+                        <input type="number" id="deleteId" name="id" required>
+                    </div>
+                    <div class="actions">
+                        <button type="submit" class="btn" style="background-color: #dc3545;">Delete Student</button>
+                    </div>
+                </form>
+                <div id="crudResult"></div>
+            </div>
+
+            <!-- Exercise 5: Session Management with Professor Selection -->
+            <div class="card">
+                <h2>Exercise 5: Session Management with Professors</h2>
+
+                <!-- Create Session Form -->
+                <div class="card" style="background: #f0f8ff;">
+                    <h3>Create New Session</h3>
+                    <form id="createSessionForm">
+                        <div class="grid">
+                            <div class="field">
+                                <label for="course_id">Course</label>
+                                <select id="course_id" name="course_id" required>
+                                    <option value="AWP">AWP</option>
+                                    <option value="PHP">PHP</option>
+                                    <option value="JavaScript">JavaScript</option>
+                                    <option value="Database">Database</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="group_id">Group</label>
+                                <select id="group_id" name="group_id" required>
+                                    <option value="AWP">AWP</option>
+                                    <option value="WEB3">WEB3</option>
+                                    <option value="ISIL">ISIL</option>
+                                    <option value="Master">Master</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="professor_id">Professor</label>
+                                <select id="professor_id" name="professor_id" required>
+                                    <option value="">Select Professor</option>
+                                    <!-- Professors will be loaded by JavaScript -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <button type="submit" class="btn">Create Session</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Close Session Form -->
+                <div class="card" style="background: #fff0f0;">
+                    <h3>Close Session</h3>
+                    <form id="closeSessionForm">
+                        <div class="field">
+                            <label for="close_session_id">Session ID to Close</label>
+                            <input type="number" id="close_session_id" name="session_id" required placeholder="Enter session ID">
+                        </div>
+                        <div class="actions">
+                            <button type="submit" class="btn" style="background-color: #dc3545;">Close Session</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Test Buttons -->
+                <div class="actions">
+                    <button onclick="testSessions()" class="btn">Test 2-3 Sessions (Auto)</button>
+                    <button onclick="viewAttendanceFiles()" class="btn">View JSON Files (Exercise 2)</button>
+                    <button onclick="testConnection()" class="btn">Test DB Connection (Exercise 3)</button>
+                    <button onclick="loadProfessors()" class="btn secondary">Refresh Professors</button>
+                </div>
+                <div id="exercise5Results"></div>
+            </div>
+
+            <!-- Current Data -->
+            <div class="card">
+                <h2>Current Data</h2>
+                <div class="actions">
+                    <button onclick="loadStudents()" class="btn small">Refresh Students</button>
+                    <button onclick="loadSessions()" class="btn small">Refresh Sessions</button>
+                </div>
+
+                <h3>Students in Database</h3>
+                <div id="studentsList"></div>
+
+                <h3>Attendance Sessions</h3>
+                <div id="sessionsList"></div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Exercise 1: JSON Student Addition
+        document.getElementById('jsonStudentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('add_student_json.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const result = document.getElementById('jsonResult');
+                    if (data.success) {
+                        result.innerHTML = `<p style="color: green;">✓ Exercise 1: ${data.message}</p>`;
+                        this.reset();
+                    } else {
+                        result.innerHTML = `<p style="color: red;">✗ Error: ${data.message}</p>`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('jsonResult').innerHTML = `<p style="color: red;">✗ Network error: ${error}</p>`;
+                });
+        });
+
+        // Exercise 4: Update Student
+        document.getElementById('updateForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('update_student.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const result = document.getElementById('crudResult');
+                    if (data.success) {
+                        result.innerHTML = `<p style="color: green;">✓ ${data.message}</p>`;
+                        this.reset();
+                        loadStudents();
+                    } else {
+                        result.innerHTML = `<p style="color: red;">✗ Error: ${data.message}</p>`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('crudResult').innerHTML = `<p style="color: red;">✗ Network error: ${error}</p>`;
+                });
+        });
+
+        // Exercise 4: Delete Student
+        document.getElementById('deleteForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (!confirm('Are you sure you want to delete this student?')) return;
+
+            const formData = new FormData(this);
+
+            fetch('delete_student.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const result = document.getElementById('crudResult');
+                    if (data.success) {
+                        result.innerHTML = `<p style="color: green;">✓ ${data.message}</p>`;
+                        this.reset();
+                        loadStudents();
+                    } else {
+                        result.innerHTML = `<p style="color: red;">✗ Error: ${data.message}</p>`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('crudResult').innerHTML = `<p style="color: red;">✗ Network error: ${error}</p>`;
+                });
+        });
+
+        // Exercise 5: Load professors for dropdown
+        function loadProfessors() {
+            const professors = [
+                {id: 'professor_john', fullname: 'Professor John', department: 'Computer Science'},
+                {id: 'professor_smith', fullname: 'Professor Smith', department: 'Mathematics'},
+                {id: 'professor_williams', fullname: 'Professor Williams', department: 'Physics'},
+                {id: 'assistant_mary', fullname: 'Assistant Mary', department: 'Computer Science'}
+            ];
+            
+            const select = document.getElementById('professor_id');
+            select.innerHTML = '<option value="">Select Professor</option>';
+            professors.forEach(prof => {
+                select.innerHTML += `<option value="${prof.id}">${prof.fullname} (${prof.department})</option>`;
+            });
+        }
+
+        // Exercise 5: Create Session Form
+        document.getElementById('createSessionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('create_session.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const results = document.getElementById('exercise5Results');
+                    if (data.success) {
+                        results.innerHTML = `<div style="border: 1px solid green; padding: 10px; margin: 10px 0;">
+                    <h4>✓ Session Created Successfully!</h4>
+                    <p><strong>Session ID:</strong> ${data.session_id}</p>
+                    <p><strong>Course:</strong> ${data.session_data?.course_id}</p>
+                    <p><strong>Group:</strong> ${data.session_data?.group_id}</p>
+                    <p><strong>Date:</strong> ${data.session_data?.date}</p>
+                    <p><strong>Status:</strong> ${data.session_data?.status}</p>
+                </div>`;
+                        this.reset();
+                        loadSessions();
+                    } else {
+                        results.innerHTML = `<div style="color: red;">Error: ${data.message}</div>`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('exercise5Results').innerHTML = `<div style="color: red;">Network error: ${error}</div>`;
+                });
+        });
+
+        // Exercise 5: Close Session Form
+        document.getElementById('closeSessionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const sessionId = document.getElementById('close_session_id').value;
+
+            if (!sessionId) {
+                alert('Please enter a session ID');
+                return;
+            }
+
+            if (!confirm(`Are you sure you want to close session #${sessionId}?`)) return;
+
+            const formData = new FormData();
+            formData.append('session_id', sessionId);
+
+            fetch('close_session.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const results = document.getElementById('exercise5Results');
+                    if (data.success) {
+                        results.innerHTML = `<div style="border: 1px solid blue; padding: 10px; margin: 10px 0;">
+                    <h4>✓ Session Closed Successfully!</h4>
+                    <p>Session #${sessionId} has been closed.</p>
+                    <p><strong>Details:</strong> ${data.message}</p>
+                </div>`;
+                        this.reset();
+                        loadSessions();
+                    } else {
+                        results.innerHTML = `<div style="color: red;">Error: ${data.message}</div>`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('exercise5Results').innerHTML = `<div style="color: red;">Network error: ${error}</div>`;
+                });
+        });
+
+        // Exercise 5: Test Sessions
+        function testSessions() {
+            fetch('test_sessions.php')
+                .then(response => response.json())
+                .then(data => {
+                    const results = document.getElementById('exercise5Results');
+                    if (data.success) {
+                        let html = '<div style="border: 1px solid green; padding: 10px; margin: 10px 0;">';
+                        html += '<h4>✓ Exercise 5: Session Management Test</h4>';
+                        html += `<p>${data.message}</p>`;
+                        html += `<p>Sessions created: ${data.sessions_created}</p>`;
+                        html += '<h4>Session Details:</h4><ul>';
+                        data.sessions.forEach(session => {
+                            const statusIcon = session.status === 'active' ? '🟢' : '🔴';
+                            html += `<li>${statusIcon} ${session.course_id} - ${session.group_id} (ID: ${session.id}) - Professor: ${session.opened_by} - Status: ${session.status}</li>`;
+                        });
+                        html += '</ul><p><em>Note: Sessions are created with today\'s date.</em></p>';
+                        html += '</div>';
+                        results.innerHTML = html;
+                        loadSessions();
+                    } else {
+                        results.innerHTML = `<div style="color: red;">Error: ${data.message}</div>`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('exercise5Results').innerHTML = `<div style="color: red;">Network error: ${error}</div>`;
+                });
+        }
+
+        function viewAttendanceFiles() {
+            // This would open a page to view JSON files - for now just show a message
+            const results = document.getElementById('exercise5Results');
+            results.innerHTML = `<div style="border: 1px solid orange; padding: 10px; margin: 10px 0;">
+                <h4>Exercise 2: JSON Files View</h4>
+                <p>This feature would display attendance JSON files.</p>
+                <p>For now, check the server file structure for JSON files.</p>
+            </div>`;
+        }
+
+        function testConnection() {
+            window.open('test_connection.php', '_blank');
+        }
+
+        function loadStudents() {
+            fetch('list_students.php')
+                .then(response => response.json())
+                .then(data => {
+                    const list = document.getElementById('studentsList');
+                    if (data.success) {
+                        let html = '<table style="width: 100%; margin-top: 10px; border-collapse: collapse;">';
+                        html += '<tr style="background: #cfeeea;"><th>ID</th><th>Full Name</th><th>Matricule</th><th>Group</th><th>Created</th></tr>';
+                        data.students.forEach(student => {
+                            html += `<tr style="border-bottom: 1px solid #B6E5DF;">
+                            <td>${student.id}</td>
+                            <td>${student.fullname}</td>
+                            <td>${student.matricule}</td>
+                            <td>${student.group_id}</td>
+                            <td>${student.created_at}</td>
+                        </tr>`;
+                        });
+                        html += '</table>';
+                        list.innerHTML = html;
+                    } else {
+                        list.innerHTML = `<p>Error: ${data.message}</p>`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('studentsList').innerHTML = `<p>Network error loading students</p>`;
+                });
+        }
+
+        function loadSessions() {
+            fetch('list_sessions.php')
+                .then(response => response.json())
+                .then(data => {
+                    const list = document.getElementById('sessionsList');
+                    if (data.success) {
+                        let html = '<table style="width: 100%; margin-top: 10px; border-collapse: collapse;">';
+                        html += '<tr style="background: #cfeeea;"><th>ID</th><th>Course</th><th>Group</th><th>Date</th><th>Professor</th><th>Status</th></tr>';
+                        data.sessions.forEach(session => {
+                            const statusColor = session.status === 'active' ? 'green' : 'red';
+                            html += `<tr style="border-bottom: 1px solid #B6E5DF;">
+                            <td>${session.id}</td>
+                            <td>${session.course_id}</td>
+                            <td>${session.group_id}</td>
+                            <td>${session.date}</td>
+                            <td>${session.professor_name || session.opened_by}</td>
+                            <td style="color: ${statusColor}">${session.status}</td>
+                        </tr>`;
+                        });
+                        html += '</table>';
+                        list.innerHTML = html;
+                    } else {
+                        list.innerHTML = `<p>Error: ${data.message}</p>`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('sessionsList').innerHTML = `<p>Network error loading sessions</p>`;
+                });
+        }
+
+        // Load data on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load all data
+            loadProfessors();
+            loadStudents();
+            loadSessions();
+        });
+    </script>
+</body>
+
+</html>
