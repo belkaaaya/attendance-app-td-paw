@@ -1,163 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <title>TP1/TP2 – Attendance (Mobile-First)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8" />
+    <title>Attendance System - AWP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="#home" class="left">Home</a>
+        <a href="#attendance">Attendance List</a>
+        <a href="#add-student">Add Student</a>
+        <a href="management.html" class="left">Management Panel</a>
+        <a href="test_connection.php" class="left">Test DB Connection</a>
+    </nav>
 
-  <!-- Navigation -->
-  <nav class="nav">
-    <a href="#home" class="left">Home</a>
-    <a href="#attendance">Attendance List</a>
-    <a href="#add-student">Add Student</a>
-  </nav>
+    <main class="container">
+        <!-- Attendance Table -->
+        <section id="attendance" class="card">
+            <div class="header-row">
+                <h1>Attendance List</h1>
+                <div>
+                    <button id="showReportBtn" class="btn small">Show Report</button>
+                    <button id="saveAttendanceBtn" class="btn small">Save to Server</button>
+                </div>
+            </div>
+            <span class="tag" id="sessionDate">Session date: Loading...</span>
 
-  <main class="container">
+            <div class="table-wrap">
+                <table aria-label="Attendance Table" id="attendanceTable">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Student ID</th>
+                            <th rowspan="2">Last Name</th>
+                            <th rowspan="2">First Name</th>
+                            <th rowspan="2">Course</th>
+                            <th colspan="6">Sessions (S1–S6)</th>
+                            <th colspan="6">Participation (P1–P6)</th>
+                            <th rowspan="2">Absences</th>
+                            <th rowspan="2">Participation</th>
+                            <th rowspan="2">Message</th>
+                        </tr>
+                        <tr>
+                            <th>S1</th>
+                            <th>S2</th>
+                            <th>S3</th>
+                            <th>S4</th>
+                            <th>S5</th>
+                            <th>S6</th>
+                            <th>P1</th>
+                            <th>P2</th>
+                            <th>P3</th>
+                            <th>P4</th>
+                            <th>P5</th>
+                            <th>P6</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTableBody">
+                        <!-- Students will be loaded by JavaScript -->
+                        <tr>
+                            <td colspan="19">Loading students from database...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-    <!-- Attendance Table -->
-    <section id="attendance" class="card">
-      <div class="header-row">
-        <h1>Attendance List</h1>
-        <button id="showReportBtn" class="btn small">Show Report</button>
-      </div>
-      <span class="tag">Session date: 2025-11-06</span>
+            <!-- Search and Controls Section -->
+            <div class="controls">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search by name...">
+                </div>
+                <div class="control-buttons">
+                    <button id="highlightExcellentBtn" class="btn small">Highlight Excellent Students</button>
+                    <button id="resetColorsBtn" class="btn small secondary">Reset Colors</button>
+                    <button id="sortAbsencesBtn" class="btn small">Sort by Absences (Asc)</button>
+                    <button id="sortParticipationBtn" class="btn small">Sort by Participation (Desc)</button>
+                </div>
+            </div>
+            <div id="sortMessage" class="sort-message"></div>
+        </section>
 
-      <div class="table-wrap">
-        <table aria-label="Attendance Table" id="attendanceTable">
-          <thead>
-            <tr>
-              <th rowspan="2">Student ID</th>
-              <th rowspan="2">Last Name</th>
-              <th rowspan="2">First Name</th>
-              <th rowspan="2">Course</th>
-              <th colspan="6">Sessions (S1–S6)</th>
-              <th colspan="6">Participation (P1–P6)</th>
-              <th rowspan="2">Absences</th>
-              <th rowspan="2">Participation</th>
-              <th rowspan="2">Message</th>
-            </tr>
-            <tr>
-              <th>S1</th><th>S2</th><th>S3</th><th>S4</th><th>S5</th><th>S6</th>
-              <th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th><th>P6</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Row 1 -->
-            <tr>
-              <td>1001</td><td>Ahmed</td><td>Sara</td><td>AWP</td>
-              <td><input type="checkbox" checked></td>
-              <td><input type="checkbox" checked></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox" checked></td>
-              <td><input type="checkbox" checked></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td class="absences">0</td>
-              <td class="participations">0</td>
-              <td class="message"></td>
-            </tr>
-            <!-- Row 2 -->
-            <tr>
-              <td>1002</td><td>Yacine</td><td>Ali</td><td>AWP</td>
-              <td><input type="checkbox" checked></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox" checked></td>
-              <td><input type="checkbox" checked></td>
-              <td><input type="checkbox" checked></td>
-              <td><input type="checkbox" checked></td>
-              <td><input type="checkbox" checked></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox" checked></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox" checked></td>
-              <td><input type="checkbox" checked></td>
-              <td class="absences">0</td>
-              <td class="participations">0</td>
-              <td class="message"></td>
-            </tr>
-            <!-- Row 3 -->
-            <tr>
-              <td>1003</td><td>Houcine</td><td>Rania</td><td>AWP</td>
-              <td><input type="checkbox" checked></td>
-              <td><input type="checkbox" checked></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox" checked></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox" checked></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td class="absences">0</td>
-              <td class="participations">0</td>
-              <td class="message"></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+        <!-- Report Section -->
+        <section id="report" class="card" aria-live="polite" style="display:none;">
+            <h2>Attendance Report – per Session</h2>
+            <div class="legend">
+                <span><i class="dot total"></i>Total</span>
+                <span><i class="dot present"></i>Present</span>
+                <span><i class="dot participated"></i>Participated</span>
+            </div>
+            <div class="chart-wrap">
+                <canvas id="reportChart" width="800" height="360" aria-label="Report chart per session"></canvas>
+            </div>
+        </section>
 
-    <!-- Report Section -->
-      <!-- Report Section -->
-    <section id="report" class="card" aria-live="polite" style="display:none;">
-      <h2>Attendance Report – per Session</h2>
+        <!-- Add Student Form -->
+        <section id="add-student" class="card">
+            <h2>Add New Student</h2>
+            <form id="studentForm" action="add_student.php" method="post" novalidate>
+                <div class="grid">
+                    <div class="field" id="f-fullname">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" id="fullname" name="fullname" placeholder="Enter full name">
+                        <span class="error-msg">Full name is required and must be valid.</span>
+                    </div>
+                    <div class="field" id="f-matricule">
+                        <label for="matricule">Matricule</label>
+                        <input type="text" id="matricule" name="matricule" placeholder="Enter matricule">
+                        <span class="error-msg">Matricule is required and must be unique.</span>
+                    </div>
+                    <div class="field" id="f-group_id">
+                        <label for="group_id">Group</label>
+                        <select id="group_id" name="group_id">
+                            <option value="CS101">CS101</option>
+                            <option value="CS102">CS102</option>
+                            <option value="WEB3">WEB3</option>
+                            <option value="ISIL">ISIL</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button type="submit" class="btn">Submit to Database</button>
+                    <button type="reset" class="btn secondary">Reset</button>
+                </div>
+            </form>
+            <div id="formResult"></div>
+        </section>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
 
-      <!-- petite légende -->
-      <div class="legend">
-        <span><i class="dot total"></i>Total</span>
-        <span><i class="dot present"></i>Present</span>
-        <span><i class="dot participated"></i>Participated</span>
-      </div>
+    <script>
+        // Load students from database when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current date
+            document.getElementById('sessionDate').textContent = 'Session date: ' + new Date().toISOString().split('T')[0];
 
-      <div class="chart-wrap">
-        <canvas id="reportChart" width="800" height="360" aria-label="Report chart per session"></canvas>
-      </div>
-    </section>
+            // Load students from database
+            loadStudentsFromDB();
+        });
 
-    <!-- Add Student Form -->
-    <section id="add-student" class="card">
-      <h2>Add New Student</h2>
-      <form id="studentForm" action="#" method="post" novalidate>
-        <div class="grid">
-          <div class="field" id="f-studentId">
-            <label for="studentId">Student ID</label>
-            <input type="text" id="studentId" name="studentId" placeholder="">
-            <span class="error-msg">Student ID must be numeric and not empty.</span>
-          </div>
-          <div class="field" id="f-lastName">
-            <label for="lastName">Last Name</label>
-            <input type="text" id="lastName" name="lastName" placeholder="">
-            <span class="error-msg">Only letters allowed.</span>
-          </div>
-          <div class="field" id="f-firstName">
-            <label for="firstName">First Name</label>
-            <input type="text" id="firstName" name="firstName" placeholder="">
-            <span class="error-msg">Only letters allowed.</span>
-          </div>
-          <div class="field" id="f-email">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="">
-            <span class="error-msg">Enter a valid email.</span>
-          </div>
-        </div>
-        <div class="actions">
-          <button type="submit" class="btn">Submit</button>
-          <button type="reset" class="btn secondary">Reset</button>
-        </div>
-      </form>
-    </section>
-  </main>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="script.js"></script>
+        function loadStudentsFromDB() {
+            fetch('list_students.php')
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.getElementById('studentsTableBody');
+                    tbody.innerHTML = '';
+
+                    if (data.success && data.students.length > 0) {
+                        data.students.forEach(student => {
+                            const tr = document.createElement('tr');
+                            
+                            // Split fullname into first and last name
+                            const nameParts = student.fullname.split(' ');
+                            const lastName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : student.fullname;
+                            const firstName = nameParts.length > 1 ? nameParts.slice(0, -1).join(' ') : student.fullname;
+                            
+                            tr.innerHTML = `
+                                <td>${student.matricule}</td>
+                                <td>${lastName}</td>
+                                <td>${firstName}</td>
+                                <td>${student.group_id}</td>
+                                <!-- 6 Session columns -->
+                                <td><input type="checkbox" class="session-check"></td>
+                                <td><input type="checkbox" class="session-check"></td>
+                                <td><input type="checkbox" class="session-check"></td>
+                                <td><input type="checkbox" class="session-check"></td>
+                                <td><input type="checkbox" class="session-check"></td>
+                                <td><input type="checkbox" class="session-check"></td>
+                                <!-- 6 Participation columns -->
+                                <td><input type="checkbox" class="participation-check"></td>
+                                <td><input type="checkbox" class="participation-check"></td>
+                                <td><input type="checkbox" class="participation-check"></td>
+                                <td><input type="checkbox" class="participation-check"></td>
+                                <td><input type="checkbox" class="participation-check"></td>
+                                <td><input type="checkbox" class="participation-check"></td>
+                                <td class="absences">0</td>
+                                <td class="participations">0</td>
+                                <td class="message"></td>
+                            `;
+                            tbody.appendChild(tr);
+                        });
+
+                        // Initialize attendance calculations
+                        if (typeof evaluateAll === 'function') {
+                            evaluateAll();
+                        }
+                    } else {
+                        tbody.innerHTML = '<tr><td colspan="19">No students found in database.</td></tr>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading students:', error);
+                    document.getElementById('studentsTableBody').innerHTML = '<tr><td colspan="19">Error loading students from database.</td></tr>';
+                });
+        }
+
+        // Handle form submission
+        document.getElementById('studentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            fetch('add_student.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultDiv = document.getElementById('formResult');
+                if (data.success) {
+                    resultDiv.innerHTML = `<p style="color: green;">✓ ${data.message}</p>`;
+                    this.reset();
+                    loadStudentsFromDB(); // Reload the student list
+                } else {
+                    resultDiv.innerHTML = `<p style="color: red;">✗ Error: ${data.message}</p>`;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('formResult').innerHTML = `<p style="color: red;">✗ Network error occurred.</p>`;
+            });
+        });
+    </script>
 </body>
+
 </html>
